@@ -2,4 +2,40 @@
     <string name="app_name">DemoMapsApp</string>
     <string name="title_activity_maps">Map</string>
     <string name="search">Search</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="bSignUp">Sign Up to this app</string>
+    <string name="btnSignUp">Sign Up To This App</string>
+    <string name="title_activity_menu_drawer">MenuDrawer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="settings">Settings</string>
+    <string name="invite_friends">Invite Friends</string>
+    <string name="my_gigs">My Gigs</string>
+    <string name="popular_spots">Popular Spots</string>
+    <string name="exit">Exit</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="imgsearch">imgSearch</string>
+    <string name="where_would_you_like_to_go">Where would you like to go</string>
+    <string name="title_activity_invite_friends">inviteFriends</string>
 </resources>

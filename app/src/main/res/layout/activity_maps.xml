@@ -63,25 +63,37 @@
             android:onClick="onSignUpBtn"
             android:layout_marginTop="110dp" />
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            class="com.google.android.gms.maps.SupportMapFragment"
-            android:id="@+id/map"
-            android:layout_width="385dp"
-            android:layout_height="460dp"
-            android:layout_marginTop="10dp"
-            tools:ignore="MissingPrefix"
-            map:cameraZoom="15"
-            map:cameraBearing="0"
-            map:cameraTilt="30" />
-
         <fragment
             android:id="@+id/place_autocomplete_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-            />
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"/>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:map="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:id="@+id/map"
+                android:layout_width="385dp"
+                android:layout_height="460dp"
+                android:layout_marginTop="10dp"
+                tools:ignore="MissingPrefix"
+                map:cameraZoom="15"
+                map:cameraBearing="0"
+                map:cameraTilt="30" />
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:backgroundTint="@color/colorPrimary"
+                app:fabSize="normal"
+                android:src="@drawable/ic_action_name"
+                android:id="@+id/fab"/>
+        </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
 
     <!-- The navigation drawer that comes from the left -->

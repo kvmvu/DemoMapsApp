@@ -38,4 +38,9 @@
     <string name="imgsearch">imgSearch</string>
     <string name="where_would_you_like_to_go">Where would you like to go</string>
     <string name="title_activity_invite_friends">inviteFriends</string>
+    <string name="explore">Explore</string>
+    <string name="food">Food</string>
+    <string name="search_hint">Search Places</string>
+    <string name="search_settings">Search Places</string>
+    <string name="action_search">Search</string>
 </resources>

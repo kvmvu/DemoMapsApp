@@ -43,9 +43,12 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.GeoDataApi;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -69,8 +72,7 @@ import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, inviteFriends.OnFragmentInteractionListener, GoogleMap.OnCameraMoveStartedListener,
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LocationListener, inviteFriends.OnFragmentInteractionListener, GoogleMap.OnCameraMoveStartedListener {
 
     private GoogleMap mMap;
     GoogleApiClient client;
@@ -81,9 +83,10 @@ public class MapsActivity extends AppCompatActivity implements
     private ActionBarDrawerToggle drawerToggle;
     private Session session;
 
-    public static final String TAG = "PlacesAutoComplete";
-
     FloatingActionButton fab;
+
+    LatLng placelatlng;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,35 +149,38 @@ public class MapsActivity extends AppCompatActivity implements
             Toast.makeText(this, "connected", Toast.LENGTH_SHORT).show();
         }
 
-        handleIntent(getIntent());
+        //autocomplete feature - google places api
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-    }
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            public static final String TAG = "activity";
 
-    private void handleIntent(Intent intent){
-        if(intent.getAction().equals(Intent.ACTION_SEARCH)){
-            doSearch(intent.getStringExtra(SearchManager.QUERY));
-        }else if(intent.getAction().equals(Intent.ACTION_VIEW)) {
-            getPlace(intent.getStringExtra(SearchManager.EXTRA_DATA_KEY));
-        }
-    }
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName());
+                Toast.makeText(getApplicationContext(), "Place: " + place.getName(), Toast.LENGTH_SHORT).show();
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        setIntent(intent);
-        handleIntent(intent);
-    }
 
-    private void doSearch(String query){
-        Bundle data = new Bundle();
-        data.putString("query", query);
-        getSupportLoaderManager().restartLoader(0, data, this);
-    }
+                Log.d(TAG, "place selected");
 
-    private void getPlace(String query){
-        Bundle data = new Bundle();
-        data.putString("query", query);
-        getSupportLoaderManager().restartLoader(1, data, this);
+                placelatlng = place.getLatLng();
+                double lat = placelatlng.latitude;
+                double lng = placelatlng.longitude;
+                goToLocationZoom(lat, lng, 15);
+
+                mMap.addMarker(new MarkerOptions().position(placelatlng).title(place.getName().toString()));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(placelatlng));
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -265,213 +271,6 @@ public class MapsActivity extends AppCompatActivity implements
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ll, zoom);
         mMap.moveCamera(cameraUpdate);
     }
-
-    //search button functionality
-    public void onSearch(View v) {
-        try {
-            EditText s_location = (EditText) findViewById(R.id.editText);
-            String location = s_location.getText().toString();
-            List<android.location.Address> addressList = null;
-
-            if (location != null || !location.equals("")) {
-                Geocoder geocoder = new Geocoder(this);
-                try {
-                    addressList = geocoder.getFromLocationName(location, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                android.location.Address address = addressList.get(0);
-                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-
-                String locality = address.getLocality();
-                Toast.makeText(this, locality, Toast.LENGTH_LONG).show();
-            }
-        } catch (Exception ex) {
-            Context context = getApplicationContext();
-
-            Toast toast = Toast.makeText(context, "Please enter Search Location", Toast.LENGTH_LONG);
-            toast.show();
-        }
-
-        //autocomplete feature - google places api
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            public static final String TAG = "activity";
-
-            @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                Log.i(TAG, "Place: " + place.getName());
-
-                /*
-                StringBuilder sb = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-                sb.append("location="+place.getLatLng());
-                sb.append("&radius=20000");
-                sb.append("&types="+place.getPlaceTypes());
-                sb.append("&sensor=true");
-                sb.append("&key=AIzaSyB34j0UGzjBHRc-F1AhPnLkQs79XHRfwJY");
-                */
-
-                //PlacesTask placesTask = new PlacesTask();
-                //placesTask.execute(sb.toString());
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i(TAG, "An error occurred: " + status);
-            }
-        });
-    }
-
-    /*
-    private String downloadUrl (String strUrl) throws IOException {
-        String data = "";
-        InputStream inputStream = null;
-        HttpURLConnection urlConnection = null;
-        try{
-            URL url = new URL (strUrl);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.connect();
-
-            inputStream = urlConnection.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuffer stringBuffer = new StringBuffer();
-
-            String line = "";
-            while((line = br.readLine()) != null){
-                stringBuffer.append(line);
-            }
-            data = stringBuffer.toString();
-            br.close();
-        } catch (Exception e){
-            Log.d("Error:", e.toString());
-        } finally {
-            inputStream.close();
-            urlConnection.disconnect();
-        }
-        return data;
-    }*/
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int arg0, Bundle query) {
-        CursorLoader cLoader = null;
-        if(arg0==0)
-            cLoader = new CursorLoader(getBaseContext(), PlaceProvider.SEARCH_URI, null, null, new String[]{ query.getString("query") }, null);
-        else if(arg0==1)
-            cLoader = new CursorLoader(getBaseContext(), PlaceProvider.DETAILS_URI, null, null, new String[]{ query.getString("query") }, null);
-        return cLoader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
-        showLocations(c);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
-
-    private void showLocations(Cursor c){
-        MarkerOptions markerOptions;
-        LatLng position = null;
-        mMap.clear();
-        while(c.moveToNext()){
-            markerOptions = new MarkerOptions();
-            position = new LatLng(Double.parseDouble(c.getString(1)),Double.parseDouble(c.getString(2)));
-            markerOptions.position(position);
-            markerOptions.title(c.getString(0));
-            mMap.addMarker(markerOptions);
-        }
-        if(position!=null){
-            CameraUpdate cameraPosition = CameraUpdateFactory.newLatLng(position);
-            mMap.animateCamera(cameraPosition);
-        }
-    }
-
-    /*
-    private class PlacesTask extends AsyncTask<String, Integer, String>{
-        String data = null;
-
-        @Override
-        protected String doInBackground(String... url){
-            try{
-                data = downloadUrl(url[0]);
-            }catch(Exception e){
-                Log.d("Bg Task: ", e.toString());
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String result){
-            ParserTask parserTask = new ParserTask();
-            parserTask.execute(result);
-        }
-    }
-
-    private class ParserTask extends AsyncTask<String, Integer, List<HashMap<String,String>>>{
-        JSONObject jsonObject;
-
-        @Override
-        protected List<HashMap<String,String>> doInBackground(String... jsonData){
-            List<HashMap<String, String>> places = null;
-            PlacesJSONParser placeJsonParser = new PlacesJSONParser();
-            try{
-                jsonObject = new JSONObject(jsonData[0]);
-                places = placeJsonParser.parse(jsonObject);
-            } catch (JSONException e) {
-                Log.d("Exception", e.toString());
-            }
-            return places;
-        }
-
-        @Override
-        protected void onPostExecute(List<HashMap<String,String>> list){
-
-            // Clears all the existing markers
-            mMap.clear();
-
-            for(int i=0;i<list.size();i++){
-
-                // Creating a marker
-                MarkerOptions markerOptions = new MarkerOptions();
-
-                // Getting a place from the places list
-                HashMap<String, String> hmPlace = list.get(i);
-
-                // Getting latitude of the place
-                double lat = Double.parseDouble(hmPlace.get("lat"));
-
-                // Getting longitude of the place
-                double lng = Double.parseDouble(hmPlace.get("lng"));
-
-                // Getting name
-                String name = hmPlace.get("place_name");
-
-                // Getting vicinity
-                String vicinity = hmPlace.get("vicinity");
-
-                LatLng latLng = new LatLng(lat, lng);
-
-                // Setting the position for the marker
-                markerOptions.position(latLng);
-
-                // Setting the title for the marker.
-                //This will be displayed on taping the marker
-                markerOptions.title(name + " : " + vicinity);
-
-                // Placing a marker on the touched position
-                mMap.addMarker(markerOptions);
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            }
-        }
-    }*/
 
     public void onSignUpBtn(View v) {
         Intent intent = new Intent(MapsActivity.this, Login.class);

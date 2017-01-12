@@ -168,10 +168,10 @@ public class MapsActivity extends AppCompatActivity implements
                 placelatlng = place.getLatLng();
                 double lat = placelatlng.latitude;
                 double lng = placelatlng.longitude;
-                goToLocationZoom(lat, lng, 15);
+                goToLocationZoom(lat, lng, 13);
 
                 mMap.addMarker(new MarkerOptions().position(placelatlng).title(place.getName().toString()));
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(placelatlng));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(placelatlng));
             }
 
             @Override

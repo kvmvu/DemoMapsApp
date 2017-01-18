@@ -9,8 +9,8 @@
     -->
     <permission
         android:name="com.example.eric.demomapsapp.MAPS_RECEIVE"
-        android:protectionLevel="signature"/>
-    
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -50,11 +50,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <provider
-            android:authorities="com.example.eric.demomapsapp.PlaceProvider"
-            android:name=".PlaceProvider"
-            android:exported="false"/>
+
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -62,9 +58,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <meta-data android:name="android.app.searchable"
-            android:resource="@xml/searchable"/>
+        <meta-data
+            android:name="android.app.searchable"
+            android:resource="@xml/searchable" />
 
         <activity android:name=".Start">
             <intent-filter>
@@ -72,7 +68,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login" />
-        <activity android:name=".PostGig"></activity>
+        <activity android:name=".PostGig" />
+        <activity
+            android:name=".ImageUpload"
+            android:label="@string/title_activity_image_upload"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

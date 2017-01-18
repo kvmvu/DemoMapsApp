@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_post_gig"
@@ -11,138 +12,145 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.eric.demomapsapp.PostGig">
 
-    <TextView
-        android:text="Post an event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:id="@+id/tvPostGig"
-        android:layout_alignParentEnd="true"
-        android:textSize="25sp"
-        android:textColor="#0000ff"/>
-
-    <EditText
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/etGigName"
-        android:hint="Choose a name for your gig"
-        android:layout_below="@+id/tvPostGig"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="11dp" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="7"
-        android:layout_marginTop="13dp"
-        android:id="@+id/etFromDate"
-        android:hint="From"
-        android:onClick="onClick"
-        android:layout_below="@+id/tvDate"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:text="Post an event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:id="@+id/tvPostGig"
+            android:layout_alignParentEnd="true"
+            android:textSize="25sp"
+            android:textColor="#093970"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="7"
-        android:id="@+id/etToDate"
-        android:hint="To"
-        android:onClick="onClick"
-        android:layout_below="@+id/etFromDate"
-        android:layout_alignParentStart="true" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/etGigName"
+            android:hint="Choose a name for your gig"
+            android:layout_below="@+id/tvPostGig"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="11dp" />
 
-    <TextView
-        android:text="Set the Date for your event"
-        android:textColor="#0000ff"
-        android:ems="22"
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvDate"
-        android:layout_marginTop="22dp"
-        android:layout_below="@+id/place_autocomplete_fragment"
-        android:layout_alignParentStart="true" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="7"
+            android:layout_marginTop="13dp"
+            android:id="@+id/etFromDate"
+            android:hint="From"
+            android:onClick="onClick"
+            android:layout_below="@+id/tvDate"
+            android:layout_alignParentStart="true" />
 
-    <fragment
-        android:id="@+id/place_autocomplete_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-        android:layout_below="@+id/tvSetLocation"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="14dp" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="7"
+            android:id="@+id/etToDate"
+            android:hint="To"
+            android:onClick="onClick"
+            android:layout_below="@+id/etFromDate"
+            android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etDescription"
-        android:hint="Give a brief description of the event"
-        android:layout_below="@+id/etGigName"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp"
-        android:layout_alignParentEnd="true"
-        android:height="100dp"
-        android:gravity="top|left"/>
+        <TextView
+            android:text="Set the Date for your event"
+            android:textColor="#093970"
+            android:ems="22"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDate"
+            android:layout_marginTop="22dp"
+            android:layout_below="@+id/place_autocomplete_fragment"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/tvSetLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set the location of your event"
-        android:textColor="#0000ff"
-        android:textSize="20sp"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/etDescription"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        <fragment
+            android:id="@+id/place_autocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+            android:layout_below="@+id/tvSetLocation"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="14dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="7"
-        android:id="@+id/etTimeFrom"
-        android:layout_alignBaseline="@+id/etFromDate"
-        android:layout_alignBottom="@+id/etFromDate"
-        android:hint="Time"
-        android:layout_alignParentEnd="true" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etDescription"
+            android:hint="Give a brief description of the event"
+            android:layout_below="@+id/etGigName"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp"
+            android:layout_alignParentEnd="true"
+            android:height="100dp"
+            android:gravity="top|left"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etTimeTo"
-        android:ems="7"
-        android:hint="Time"
-        android:layout_below="@+id/etTimeFrom"
-        android:layout_alignStart="@+id/etTimeFrom" />
+        <TextView
+            android:id="@+id/tvSetLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set the location of your event"
+            android:textColor="#093970"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/etDescription"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PROCEED"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:id="@+id/tvProceed"
-        android:height="50dp"
-        android:layout_below="@+id/etToDate"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        android:textColor="#000fff"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="7"
+            android:id="@+id/etTimeFrom"
+            android:layout_alignBaseline="@+id/etFromDate"
+            android:layout_alignBottom="@+id/etFromDate"
+            android:hint="Time"
+            android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvBack"
-        android:text="BACK"
-        android:textSize="20sp"
-        android:height="50dp"
-        android:layout_below="@+id/tvProceed"
-        android:layout_alignStart="@+id/tvProceed"
-        android:layout_alignEnd="@+id/tvProceed"
-        android:textColor="#800000"
-        android:onClick="onTvBack"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etTimeTo"
+            android:ems="7"
+            android:hint="Time"
+            android:layout_below="@+id/etTimeFrom"
+            android:layout_alignStart="@+id/etTimeFrom" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Proceed"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:id="@+id/tvProceed"
+            android:height="50dp"
+            android:layout_below="@+id/etToDate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp"
+            android:textColor="#093970"
+            android:onClick="onTvProceed"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvBack"
+            android:text="Back"
+            android:textSize="20sp"
+            android:height="50dp"
+            android:layout_below="@+id/tvProceed"
+            android:layout_alignStart="@+id/tvProceed"
+            android:layout_alignEnd="@+id/tvProceed"
+            android:textColor="#800000"
+            android:onClick="onTvBack"/>
+
+    </RelativeLayout>
+
+</ScrollView>

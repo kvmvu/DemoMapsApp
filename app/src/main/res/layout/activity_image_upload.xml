@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.eric.demomapsapp.ImageUpload"
+    android:id="@+id/coordlayout">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#093970"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                android:title="@string/choose_an_image"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/content_image_upload" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Choose a fitting poster image for your event"
+            android:layout_marginTop="70dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@mipmap/ic_browse_image"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="60dp"
+            app:backgroundTint="#093970"/>
+
+        <ImageView
+            android:layout_width="320dp"
+            android:layout_height="180dp"
+            app:srcCompat="@drawable/ic_menu_gallery"
+            android:layout_marginTop="30dp"
+            android:id="@+id/imgView"
+            android:gravity="center"
+            android:layout_below="@+id/fab"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tvProceed2"
+            android:text="Proceed"
+            android:textColor="#093970"
+            android:layout_below="@+id/imgView"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:onClick="onTvimgProceed"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

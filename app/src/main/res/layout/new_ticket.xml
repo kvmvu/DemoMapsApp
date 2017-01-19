@@ -27,4 +27,16 @@
             android:hint="Ticket Price"
             />
     </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_ticketDescription">
+        <EditText
+            android:id="@+id/ticketDescription"
+            android:layout_width = "match_parent"
+            android:layout_height = "58dp"
+            android:hint="Ticket Description"
+            />
+    </android.support.design.widget.TextInputLayout>
 </LinearLayout>

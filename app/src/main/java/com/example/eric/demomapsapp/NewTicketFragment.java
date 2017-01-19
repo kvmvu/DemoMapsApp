@@ -43,10 +43,12 @@ public class NewTicketFragment extends DialogFragment {
                 DbHelper db = new DbHelper(getActivity());
                 EditText ticketName = (EditText) rootView.findViewById(R.id.ticketName);
                 EditText ticketPrice = (EditText) rootView.findViewById(R.id.ticketPrice);
+                EditText ticketDescription = (EditText) rootView.findViewById(R.id.ticketDescription);
                 String name = String.valueOf(ticketName.getText());
                 String price = String.valueOf(ticketPrice.getText());
+                String description = String.valueOf(ticketDescription.getText());
 
-                Ticket ticket = new Ticket(name, price);
+                Ticket ticket = new Ticket(name, price, description);
                 db.addTicket(ticket);
                 List<Ticket> ticketList = db.getAllTickets();
                 ((EventTickets)getActivity()).createList(ticketList);

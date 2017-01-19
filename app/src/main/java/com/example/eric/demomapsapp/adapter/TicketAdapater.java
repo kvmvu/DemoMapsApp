@@ -52,11 +52,16 @@ public class TicketAdapater extends BaseAdapter {
 
         TextView ticketName = (TextView) view.findViewById(R.id.item_ticket_name);
         TextView ticketPrice = (TextView) view.findViewById(R.id.item_ticket_price);
+        TextView ticketDescription = (TextView) view.findViewById(R.id.item_ticket_description);
+        TextView ticketID = (TextView) view.findViewById(R.id.item_ticket_id);
 
         Ticket ticket = ticketList.get(i);
 
         ticketName.setText(ticket.get_ticket_name());
         ticketPrice.setText("Ksh. " + ticket.get_ticket_price());
+        ticketDescription.setText(ticket.get_ticket_description());
+        ticketID.setText(String.valueOf(ticket.get_id()));
+
         return view;
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
 public class DbHelper extends SQLiteOpenHelper{
     public static final String TAG = DbHelper.class.getSimpleName();
     public static final String DB_NAME = "demomapsapp.db";
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
 
     public static final String USER_TABLE = "users";
     public static final String COLUMN_ID = "_id";
@@ -30,6 +30,7 @@ public class DbHelper extends SQLiteOpenHelper{
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "ticket_name";
     private static final String KEY_PRICE = "ticket_price";
+    private static final String KEY_DESCRIPTION = "description";
 
     public static final String CREATE_TABLE_USERS = "CREATE TABLE " + USER_TABLE + " ( "
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -39,6 +40,7 @@ public class DbHelper extends SQLiteOpenHelper{
     public static final String CREATE_TABLE_TICKET = "CREATE TABLE " + TABLE_TICKET + " ( "
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + KEY_NAME + " TEXT, "
+            + KEY_DESCRIPTION + " TEXT, "
             + KEY_PRICE + " TEXT);";
 
 
@@ -95,6 +97,7 @@ public class DbHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, ticket.get_ticket_name());
         values.put(KEY_PRICE, ticket.get_ticket_price());
+        values.put(KEY_DESCRIPTION, ticket.get_ticket_description());
 
         db.insert(TABLE_TICKET, null, values);
         db.close();
@@ -102,11 +105,11 @@ public class DbHelper extends SQLiteOpenHelper{
 
     public Ticket getTicket(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_TICKET, new String[]{KEY_ID, KEY_NAME, KEY_PRICE}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor = db.query(TABLE_TICKET, new String[]{KEY_ID, KEY_NAME, KEY_PRICE, KEY_DESCRIPTION}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
-        Ticket ticket = new Ticket(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+        Ticket ticket = new Ticket(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3));
         return ticket;
     }
 
@@ -123,7 +126,8 @@ public class DbHelper extends SQLiteOpenHelper{
                 Ticket ticket = new Ticket();
                 ticket.set_id(Integer.parseInt(cursor.getString(0)));
                 ticket.set_ticket_name(cursor.getString(1));
-                ticket.set_ticket_price(cursor.getString(2));
+                ticket.set_ticket_price(cursor.getString(3));
+                ticket.set_ticket_description(cursor.getString(2));
 
                 ticketList.add(ticket);
             }while (cursor.moveToNext());
@@ -146,6 +150,7 @@ public class DbHelper extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, ticket.get_ticket_name());
         values.put(KEY_PRICE, ticket.get_ticket_price());
+        values.put(KEY_DESCRIPTION, ticket.get_ticket_description());
 
         return db.update(TABLE_TICKET, values, KEY_ID + " = ?", new String[]{String.valueOf(ticket.get_id())});
     }

@@ -7,6 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.eric.demomapsapp.model.Ticket;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Eric on 9/25/2016.
  */
@@ -14,17 +19,29 @@ import android.util.Log;
 public class DbHelper extends SQLiteOpenHelper{
     public static final String TAG = DbHelper.class.getSimpleName();
     public static final String DB_NAME = "demomapsapp.db";
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
 
     public static final String USER_TABLE = "users";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_PASSWORD = "password";
 
+    private static final String TABLE_TICKET = "ticket";
+    private static final String KEY_ID = "id";
+    private static final String KEY_NAME = "ticket_name";
+    private static final String KEY_PRICE = "ticket_price";
+    private static final String KEY_DESCRIPTION = "description";
+
     public static final String CREATE_TABLE_USERS = "CREATE TABLE " + USER_TABLE + " ( "
-            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT "
-            + COLUMN_USERNAME + " TEXT "
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_USERNAME + " TEXT, "
             + COLUMN_PASSWORD + " TEXT); ";
+
+    public static final String CREATE_TABLE_TICKET = "CREATE TABLE " + TABLE_TICKET + " ( "
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + KEY_NAME + " TEXT, "
+            + KEY_DESCRIPTION + " TEXT, "
+            + KEY_PRICE + " TEXT);";
 
 
 
@@ -35,11 +52,13 @@ public class DbHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLE_USERS);
+        sqLiteDatabase.execSQL(CREATE_TABLE_TICKET);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_USERS);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TICKET);
         onCreate(sqLiteDatabase);
     }
 
@@ -70,5 +89,76 @@ public class DbHelper extends SQLiteOpenHelper{
         sqLiteDatabase.close();
 
         return false;
+    }
+
+    public void addTicket(Ticket ticket){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, ticket.get_ticket_name());
+        values.put(KEY_PRICE, ticket.get_ticket_price());
+        values.put(KEY_DESCRIPTION, ticket.get_ticket_description());
+
+        db.insert(TABLE_TICKET, null, values);
+        db.close();
+    }
+
+    public Ticket getTicket(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_TICKET, new String[]{KEY_ID, KEY_NAME, KEY_PRICE, KEY_DESCRIPTION}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Ticket ticket = new Ticket(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        return ticket;
+    }
+
+    public List<Ticket> getAllTickets(){
+        List<Ticket> ticketList = new ArrayList<Ticket>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_TICKET;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()){
+            do{
+                Ticket ticket = new Ticket();
+                ticket.set_id(Integer.parseInt(cursor.getString(0)));
+                ticket.set_ticket_name(cursor.getString(1));
+                ticket.set_ticket_price(cursor.getString(3));
+                ticket.set_ticket_description(cursor.getString(2));
+
+                ticketList.add(ticket);
+            }while (cursor.moveToNext());
+        }
+
+        return ticketList;
+    }
+
+    public int getTicketCount(){
+        String countQuery = "SELECT * FROM " + TABLE_TICKET;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+//        cursor.close();
+        return cursor.getCount();
+    }
+
+    public int updateTicket(Ticket ticket){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, ticket.get_ticket_name());
+        values.put(KEY_PRICE, ticket.get_ticket_price());
+        values.put(KEY_DESCRIPTION, ticket.get_ticket_description());
+
+        return db.update(TABLE_TICKET, values, KEY_ID + " = ?", new String[]{String.valueOf(ticket.get_id())});
+    }
+
+    public void deleteTicket(Ticket ticket){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TICKET, KEY_ID + " = ?",
+                new String[] { String.valueOf(ticket.get_id()) });
+        db.close();
     }
 }

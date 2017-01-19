@@ -63,7 +63,9 @@ public class ImageUpload extends AppCompatActivity {
     }
 
     public void onTvimgProceed(View view) {
-        Snackbar snackbar = Snackbar.make(coordinatorLayout, "Ticketing Details coming soon", Snackbar.LENGTH_SHORT);
-        snackbar.show();
+//        Snackbar snackbar = Snackbar.make(coordinatorLayout, "Ticketing Details coming soon", Snackbar.LENGTH_SHORT);
+//        snackbar.show();
+        Intent intent = new Intent(this, EventTickets.class);
+        startActivity(intent);
     }
 }

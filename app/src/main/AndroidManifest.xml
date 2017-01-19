@@ -72,7 +72,8 @@
         <activity
             android:name=".ImageUpload"
             android:label="@string/title_activity_image_upload"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".EventTickets"></activity>
     </application>
 
 </manifest>

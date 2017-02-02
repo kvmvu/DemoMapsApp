@@ -207,14 +207,8 @@ public class MapsActivity extends AppCompatActivity implements
         Fragment fragment = null;
         Class fragmentClass;
         switch (menuItem.getItemId()) {
-            case R.id.nav_explore:
-                fragmentClass = Start.class;
-                break;
             case R.id.nav_mygigs:
                 fragmentClass = Login.class;
-                break;
-            case R.id.nav_popular_spots:
-                fragmentClass = MapsActivity.class;
                 break;
             case R.id.nav_invite_friends:
                 fragmentClass = inviteFriends.class;
@@ -222,7 +216,7 @@ public class MapsActivity extends AppCompatActivity implements
             case R.id.nav_settings:
                 fragmentClass = MapsActivity.class;
                 break;
-            case R.id.nav_exit:
+            case R.id.nav_logout:
                 fragmentClass = Start.class;
                 break;
             default:
@@ -398,5 +392,12 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
+    public void onLogOut(MenuItem item) {
+        session.setPreferences(MapsActivity.this, "status", "0");
+        finish();
+        //goes back to start screen
+        Intent intent = new Intent(MapsActivity.this, Start.class);
+        startActivity(intent);
+    }
 }
 

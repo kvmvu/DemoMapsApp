@@ -75,7 +75,8 @@ public class inviteFriends extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         /*List view to display contact names and number on click*/
-        contactList = (ListView) contactList.findViewById(R.id.listOfContacts);
+        View v = inflater.inflate(R.layout.fragment_invite_friends, container, false);
+        contactList = (ListView) v.findViewById(R.id.listOfContacts);
 
         /*Must have FOUR null values after*/
         Cursor phones = getContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
@@ -117,7 +118,7 @@ public class inviteFriends extends Fragment {
         });
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_invite_friends, container, false);
+        return v;
     }
 
     @Override

@@ -45,4 +45,5 @@
     <string name="title_activity_image_upload">ImageUpload</string>
     <string name="choose_an_image">Choose an Image</string>
     <string name="hello_blank_fragment">hello</string>
+    <string name="title_activity_sign_in">Sign in</string>
 </resources>

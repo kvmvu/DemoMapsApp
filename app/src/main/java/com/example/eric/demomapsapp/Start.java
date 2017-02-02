@@ -50,4 +50,9 @@ public class Start extends AppCompatActivity {
         Intent intent = new Intent(Start.this, PostGig.class);
         startActivity(intent);
     }
+
+    public void onSignIn(View view) {
+        Intent intent = new Intent(Start.this, SignIn.class);
+        startActivity(intent);
+    }
 }

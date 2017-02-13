@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:src="@mipmap/ic_browse_image"
+            android:src="@mipmap/ic_select_image"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_alignParentEnd="true"
@@ -59,14 +59,31 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/tvProceed2"
-            android:text="Proceed"
-            android:textColor="#093970"
-            android:layout_below="@+id/imgView"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvBack2"
+            android:text="Back"
+            android:height="50dp"
+            android:textColor="#ffffff"
+            android:background="#feba31"
             android:gravity="center"
             android:textSize="20dp"
-            android:onClick="onTvimgProceed"/>
+            android:onClick="onTvBack"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvProceed2"
+            android:text="Proceed"
+            android:height="50dp"
+            android:textColor="#ffffff"
+            android:background="#324376"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:onClick="onTvimgProceed"
+            android:layout_above="@+id/tvBack2"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 

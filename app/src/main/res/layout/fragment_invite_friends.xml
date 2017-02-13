@@ -5,7 +5,7 @@
     tools:context="com.example.eric.demomapsapp.inviteFriends">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Invite Friends"
@@ -31,7 +31,7 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose friends to share PataGig with"
         android:paddingLeft="7dp"

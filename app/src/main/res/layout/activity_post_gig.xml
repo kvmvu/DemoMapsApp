@@ -18,13 +18,14 @@
 
         <TextView
             android:text="Post an event"
+            android:background="#324376"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:id="@+id/tvPostGig"
             android:layout_alignParentEnd="true"
             android:textSize="25sp"
-            android:textColor="#093970"/>
+            android:textColor="#ffffff"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -62,7 +63,7 @@
 
         <TextView
             android:text="Set the Date for your event"
-            android:textColor="#093970"
+            android:textColor="#324376"
             android:ems="22"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -98,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Set the location of your event"
-            android:textColor="#093970"
+            android:textColor="#324376"
             android:textSize="20sp"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/etDescription"
@@ -125,9 +126,10 @@
             android:layout_alignStart="@+id/etTimeFrom" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Proceed"
+            android:background="#324376"
             android:textSize="20sp"
             android:gravity="center"
             android:id="@+id/tvProceed"
@@ -135,20 +137,22 @@
             android:layout_below="@+id/etToDate"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="23dp"
-            android:textColor="#093970"
+            android:textColor="#ffffff"
             android:onClick="onTvProceed"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvBack"
             android:text="Back"
+            android:background="#feba31"
+            android:gravity="center"
             android:textSize="20sp"
             android:height="50dp"
             android:layout_below="@+id/tvProceed"
             android:layout_alignStart="@+id/tvProceed"
             android:layout_alignEnd="@+id/tvProceed"
-            android:textColor="#800000"
+            android:textColor="#ffffff"
             android:onClick="onTvBack"/>
 
     </RelativeLayout>

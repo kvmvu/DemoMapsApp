@@ -68,4 +68,8 @@ public class ImageUpload extends AppCompatActivity {
         Intent intent = new Intent(this, EventTickets.class);
         startActivity(intent);
     }
+
+    public void onTvBack(View view) {
+        finish();
+    }
 }

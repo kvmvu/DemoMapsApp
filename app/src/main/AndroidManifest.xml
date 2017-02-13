@@ -73,7 +73,10 @@
             android:name=".ImageUpload"
             android:label="@string/title_activity_image_upload"
             android:theme="@style/AppTheme" />
-        <activity android:name=".EventTickets"></activity>
+        <activity android:name=".EventTickets" />
+        <activity
+            android:name=".SignIn"
+            android:label="@string/title_activity_sign_in"></activity>
     </application>
 
 </manifest>

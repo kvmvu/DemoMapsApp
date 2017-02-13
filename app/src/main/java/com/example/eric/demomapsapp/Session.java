@@ -8,22 +8,16 @@ import android.content.SharedPreferences;
  */
 
 public class Session {
-    SharedPreferences prefs;
-    static SharedPreferences.Editor loginEditor;
-    Context context;
 
-    public Session(Context context){
-        this.context = context;
-        prefs = context.getSharedPreferences("demomapsapp", Context.MODE_PRIVATE);
-        loginEditor = prefs.edit();
+    public void setPreferences(Context context, String key, String value){
+        SharedPreferences.Editor editor = context.getSharedPreferences("demomapsapp", Context.MODE_PRIVATE).edit();
+        editor.putString(key, value);
+        editor.commit();
     }
 
-    public static void setLoggedIn(boolean loggedIn){
-        loginEditor.putBoolean("LoggedIn", loggedIn);
-        loginEditor.commit();
-    }
-
-    public boolean loggedIn(){
-        return prefs.getBoolean("LoggedIn", false);
+    public String getPreferences(Context context, String key){
+        SharedPreferences preferences = context.getSharedPreferences("demomapsapp", Context.MODE_PRIVATE);
+        String position = preferences.getString(key, "");
+        return position;
     }
 }

@@ -2,40 +2,26 @@ package com.example.eric.demomapsapp;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.database.Cursor;
-import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -47,12 +33,9 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.GeoDataApi;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -61,18 +44,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -166,13 +137,12 @@ public class MapsActivity extends AppCompatActivity implements
                 Log.i(TAG, "Place: " + place.getName());
                 Toast.makeText(getApplicationContext(), "Place: " + place.getName(), Toast.LENGTH_SHORT).show();
 
-
                 Log.d(TAG, "place selected");
 
                 placelatlng = place.getLatLng();
                 double lat = placelatlng.latitude;
                 double lng = placelatlng.longitude;
-                goToLocationZoom(lat, lng, 13);
+                goToLocationZoom(lat, lng, 15);
 
                 mMap.addMarker(new MarkerOptions().position(placelatlng).title(place.getName().toString()));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(placelatlng));
@@ -207,14 +177,8 @@ public class MapsActivity extends AppCompatActivity implements
         Fragment fragment = null;
         Class fragmentClass;
         switch (menuItem.getItemId()) {
-            case R.id.nav_explore:
-                fragmentClass = Start.class;
-                break;
             case R.id.nav_mygigs:
                 fragmentClass = Login.class;
-                break;
-            case R.id.nav_popular_spots:
-                fragmentClass = MapsActivity.class;
                 break;
             case R.id.nav_invite_friends:
                 fragmentClass = inviteFriends.class;
@@ -222,7 +186,7 @@ public class MapsActivity extends AppCompatActivity implements
             case R.id.nav_settings:
                 fragmentClass = MapsActivity.class;
                 break;
-            case R.id.nav_exit:
+            case R.id.nav_logout:
                 fragmentClass = Start.class;
                 break;
             default:
@@ -398,5 +362,12 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
+    public void onLogOut(MenuItem item) {
+        session.setPreferences(MapsActivity.this, "status", "0");
+        finish();
+        //goes back to start screen
+        Intent intent = new Intent(MapsActivity.this, Start.class);
+        startActivity(intent);
+    }
 }
 

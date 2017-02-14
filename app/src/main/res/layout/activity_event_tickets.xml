@@ -53,6 +53,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/pgTvProceed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -62,5 +63,19 @@
         android:textColor="#FFFFFF"
         android:textAlignment="center"
         android:textSize="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Validate Tickets"
+        android:padding="16dp"
+        android:background="#feba31"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView3"
+        android:layout_above="@+id/pgTvProceed"
+        android:onClick="goToQrScanner"/>
 
 </RelativeLayout>

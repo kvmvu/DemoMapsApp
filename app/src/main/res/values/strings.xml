@@ -44,6 +44,9 @@
     <string name="action_search">Search</string>
     <string name="title_activity_image_upload">ImageUpload</string>
     <string name="choose_an_image">Choose an Image</string>
-    <string name="hello_blank_fragment">hello</string>
     <string name="title_activity_sign_in">Sign in</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_qrticket_scanner">Scan Tickets</string>
 </resources>

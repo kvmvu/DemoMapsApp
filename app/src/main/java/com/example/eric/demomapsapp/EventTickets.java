@@ -1,6 +1,7 @@
 package com.example.eric.demomapsapp;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -60,5 +62,10 @@ public class EventTickets extends AppCompatActivity {
         textView.setText(String.valueOf(ticketCount));
         TicketAdapater ticketAdapater = new TicketAdapater(EventTickets.this, ticketList);
         listView.setAdapter(ticketAdapater);
+    }
+
+    public void goToQrScanner(View view) {
+        Intent intent = new Intent(EventTickets.this, QRticketScanner.class);
+        startActivity(intent);
     }
 }

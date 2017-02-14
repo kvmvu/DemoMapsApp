@@ -1,6 +1,7 @@
 package com.example.eric.demomapsapp;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,8 +48,15 @@ public class Start extends AppCompatActivity {
     }
 
     public void onBtnPostGig(View v){
-        Intent intent = new Intent(Start.this, PostGig.class);
-        startActivity(intent);
+        String status = session.getPreferences(Start.this, "status");
+        Log.d("status", status);
+        if(status.equals("1")){
+            Intent intent = new Intent(Start.this, PostGig.class);
+            startActivity(intent);
+        } else {
+            Snackbar.make(v, "You must be logged in to post an event",
+                    Snackbar.LENGTH_LONG).show();
+        }
     }
 
     public void onSignIn(View view) {

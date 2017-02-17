@@ -57,6 +57,8 @@ public class Start extends AppCompatActivity {
             Snackbar.make(v, "You must be logged in to post an event",
                     Snackbar.LENGTH_LONG).show();
         }
+        //Intent intent = new Intent(Start.this, PostGig.class);
+        //startActivity(intent);
     }
 
     public void onSignIn(View view) {

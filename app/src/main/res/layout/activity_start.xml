@@ -58,7 +58,7 @@
 
         <RelativeLayout
             android:id="@+id/ll3"
-            android:background="#512DA8"
+            android:background="#4ccbd2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" >
@@ -80,7 +80,7 @@
 
         <RelativeLayout
             android:id="@+id/ll4"
-            android:background="#d32f2f"
+            android:background="#555b6e"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:onClick="onBtnSignUp"

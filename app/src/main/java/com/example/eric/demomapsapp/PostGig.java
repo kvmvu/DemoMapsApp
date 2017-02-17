@@ -177,8 +177,7 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
         eventName = etEventName.getText().toString();
         eventDescription = etEventDescription.getText().toString();
 
-        db.addEvent(eventName, eventDescription, pName, eventLat, eventLng, fromDate, toDate,
-                fromTime, toTime);
+        //db.addEvent();
         startActivity(new Intent(PostGig.this, ImageUpload.class));
     }
 

@@ -6,8 +6,8 @@ package com.example.eric.demomapsapp.app;
 
 public class AppConfig {
     // Server user login url
-    public static String URL_LOGIN = "http://savtech.co.ke/demomapsapp/signin.php";
+    public static String URL_LOGIN = "http://savtech.co.ke/demomapsapp/index.php";
 
     // Server user register url
-    public static String URL_REGISTER = "http://savtech.co.ke/demomapsapp/registration.php";
+    public static String URL_REGISTER = "http://savtech.co.ke/demomapsapp/index.php";
 }

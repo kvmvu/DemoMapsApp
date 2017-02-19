@@ -25,15 +25,13 @@ import java.util.List;
 public class DbHelper extends SQLiteOpenHelper{
     public static final String TAG = DbHelper.class.getSimpleName();
     public static final String DB_NAME = "demomapsapp.db";
-    public static final int DB_VERSION = 3;
+    public static final int DB_VERSION = 4;
 
     public static final String USER_TABLE = "users";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_EMAIL = "emailaddress";
-    //public static final String COLUMN_PASSWORD = "password";
-    public static final String COLUMN_UID = "uniqueID";
-    public static final String COLUMN_CREATEDAT = "created_at";
+    public static final String COLUMN_PASSWORD = "password";
 
 
     private static final String TABLE_TICKET = "ticket";
@@ -69,10 +67,9 @@ public class DbHelper extends SQLiteOpenHelper{
 
     public static final String CREATE_TABLE_USERS = "CREATE TABLE " + USER_TABLE + " ( "
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COLUMN_UID + " TEXT "
             + COLUMN_USERNAME + " TEXT, "
-            + COLUMN_EMAIL + " TEXT); ";
-      //      + COLUMN_PASSWORD + " TEXT); ";
+            + COLUMN_EMAIL + " TEXT, "
+            + COLUMN_PASSWORD + " TEXT); ";
 
     public static final String CREATE_TABLE_TICKET = "CREATE TABLE " + TABLE_TICKET + " ( "
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -129,14 +126,13 @@ public class DbHelper extends SQLiteOpenHelper{
         onCreate(sqLiteDatabase);
     }
 
-    public void addUser(String username, String email, String uuid, String created_at){
+    public void addUser(String username, String email, String password){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_UID, uuid);
         contentValues.put(COLUMN_USERNAME, username);
         contentValues.put(COLUMN_EMAIL, email);
-        contentValues.put(COLUMN_CREATEDAT, created_at);
+        contentValues.put(COLUMN_PASSWORD, password);
 
         long id = sqLiteDatabase.insert(USER_TABLE, null, contentValues);
         sqLiteDatabase.close();
@@ -154,9 +150,9 @@ public class DbHelper extends SQLiteOpenHelper{
         //move to first row
         cursor.moveToFirst();
         if(cursor.getCount() > 0){
-            user.put("uniqueID", cursor.getString(1));
-            user.put("username", cursor.getString(2));
-            user.put("emailaddress", cursor.getString(3));
+            user.put("username", cursor.getString(1));
+            user.put("emailaddress", cursor.getString(2));
+            user.put("password", cursor.getString(3));
             user.put("created_at", cursor.getString(4));
         }
         cursor.close();
@@ -166,10 +162,10 @@ public class DbHelper extends SQLiteOpenHelper{
         return user;
     }
 
-    /*
-    public boolean getUser(String email, String uuid){
+
+    public boolean getUser(String email, String pass){
         String selectQuery = "select * from " + USER_TABLE + " where " + COLUMN_USERNAME + " = " + " '"
-                + username + "' " + " and " + COLUMN_PASSWORD + " = " + " '" + pass + "' ;";
+                + email + "' " + " and " + COLUMN_PASSWORD + " = " + " '" + pass + "' ;";
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
 
@@ -181,7 +177,7 @@ public class DbHelper extends SQLiteOpenHelper{
         sqLiteDatabase.close();
 
         return false;
-    }*/
+    }
 
     public void addTicket(Ticket ticket){
         SQLiteDatabase db = this.getWritableDatabase();

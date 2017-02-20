@@ -77,11 +77,16 @@ public class ImageUpload extends AppCompatActivity {
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 String picturePath = cursor.getString(columnIndex); // String picturePath contains the path of selected Image
+                this.imagePath = picturePath;
                 cursor.close();
 
                 ImageView imageView = (ImageView) findViewById(R.id.imgView);
                 imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
             }
+    }
+
+    public void onTvBack(View view) {
+        finish();
     }
 
     public void onTvimgProceed(View view) {
@@ -109,9 +114,5 @@ public class ImageUpload extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Please choose an image", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void onTvBack(View view) {
-        finish();
     }
 }

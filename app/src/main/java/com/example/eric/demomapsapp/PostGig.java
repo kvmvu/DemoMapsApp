@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.eric.demomapsapp.model.Event;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -20,8 +22,10 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class PostGig extends AppCompatActivity implements View.OnClickListener{
@@ -32,6 +36,7 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
     EditText etTimeTo;
     EditText etEventName;
     EditText etEventDescription;
+    TextView txtEventId;
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
     private SimpleDateFormat dateFormatter;
@@ -53,11 +58,35 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
 
         db = new DbHelper(this);
 
+        findViewById();
+        setDateTimeField();
+
+        int count = db.getEventCount();
+
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         timeFormatter = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
 
-        findViewById();
-        setDateTimeField();
+        etEventName = (EditText) findViewById(R.id.etGigName);
+        etEventDescription = (EditText) findViewById(R.id.etDescription);
+        txtEventId = (TextView) findViewById(R.id.eventId);
+
+        if (count != 0){
+            Toast.makeText(this, "Continuing from where you left", Toast.LENGTH_SHORT).show();
+            Event event = db.getEvent();
+
+            etEventName.setText(event.getEvent_name());
+            txtEventId.setText(String.valueOf(event.getId()));
+            etEventDescription.setText(event.getEvent_description());
+
+            String[] startTime = event.getEvent_start_time().split(" ");
+            String[] toTime = event.getEvent_end_time().split(" ");
+
+            etFromDate.setText(startTime[0]);
+            etTimeFrom.setText(startTime[1]);
+
+            etToDate.setText(toTime[0]);
+            etTimeTo.setText(toTime[1]);
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -174,11 +203,48 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void onTvProceed(View view){
-        eventName = etEventName.getText().toString();
-        eventDescription = etEventDescription.getText().toString();
+        txtEventId = (TextView) findViewById(R.id.eventId);
+        etEventName = (EditText) findViewById(R.id.etGigName);
+        etEventDescription = (EditText) findViewById(R.id.etDescription);
 
-        //db.addEvent();
-        startActivity(new Intent(PostGig.this, ImageUpload.class));
+        String eventId = txtEventId.getText().toString();
+        String eventName = etEventName.getText().toString();
+        String eventDescription = etEventDescription.getText().toString();
+        String fromDate = etFromDate.getText().toString();
+        String fromTime = etTimeFrom.getText().toString();
+        String toDate = etToDate.getText().toString();
+        String toTime = etTimeTo.getText().toString();
+
+        String combinedFromTime = fromDate + " " + fromTime;
+        String combinedToTime = toDate + " " + toTime;
+
+        Toast.makeText(this, combinedFromTime, Toast.LENGTH_SHORT).show();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.US);
+        Date fromDateTime = null;
+        Date toDateTime = null;
+        String fromDateTimeString = "";
+        String toDateTimeString = "";
+        try {
+            fromDateTime = dateFormat.parse(combinedFromTime);
+            toDateTime = dateFormat.parse(combinedToTime);
+
+            fromDateTimeString = dateFormat.format(fromDateTime);
+            toDateTimeString = dateFormat.format(toDateTime);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Intent i = new Intent(PostGig.this, ImageUpload.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("eventName", eventName);
+        bundle.putString("eventDescription", eventDescription);
+        bundle.putString("eventId", eventId);
+        bundle.putString("eventStart", fromDateTimeString);
+        bundle.putString("eventEnd", toDateTimeString);
+
+        i.putExtras(bundle);
+        startActivity(i);
     }
 
     public void onTvBack(View view) {

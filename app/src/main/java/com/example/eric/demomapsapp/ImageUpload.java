@@ -35,6 +35,8 @@ public class ImageUpload extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        db = new DbHelper(ImageUpload.this);
+
         Bundle bundle = getIntent().getExtras();
 
         eventId = bundle.getString("eventId");

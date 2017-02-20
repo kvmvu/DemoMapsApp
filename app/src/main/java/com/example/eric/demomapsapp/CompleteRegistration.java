@@ -151,7 +151,8 @@ public class CompleteRegistration extends AppCompatActivity {
             case R.id.action_upload:
                 final JSONArray ticketDetails = dbHelper.getTicketsByEvent(_event.getId());
                 System.out.println(ticketDetails);
-                VolleyMultipartRequest stringRequest = new VolleyMultipartRequest(Request.Method.POST, Config.base_url + "addEvent.php", new Response.Listener<NetworkResponse>() {
+                VolleyMultipartRequest stringRequest = new VolleyMultipartRequest(Request.Method.POST,
+                        Config.base_url + "addEvent.php", new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
                         String resultResponse = new String(response.data);
@@ -219,7 +220,8 @@ public class CompleteRegistration extends AppCompatActivity {
                         Drawable d = Drawable.createFromPath(_event.getEvent_image());
                         String mimeType = Config.getMimeType(_event.getEvent_image());
                         System.out.println(mimeType);
-                        params.put("event_image", new DataPart(_event.getEvent_image(), AppHelper.getFileDataFromDrawable(getBaseContext(), d), mimeType));
+                        params.put("event_image", new DataPart(_event.getEvent_image(),
+                                AppHelper.getFileDataFromDrawable(getBaseContext(), d), mimeType));
                         return params;
                     }
                 };

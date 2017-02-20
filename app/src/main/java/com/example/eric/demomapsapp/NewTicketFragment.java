@@ -44,7 +44,7 @@ public class NewTicketFragment extends DialogFragment {
         String buttonText = "Add Ticket";
 
         Bundle args = getArguments();
-        if (!args.getString("ticket_id").isEmpty()){
+        if (!args.getString("ticketID").isEmpty()){
             buttonText = "Edit Ticket";
             EditText ticketName = (EditText) rootView.findViewById(R.id.ticketName);
             EditText ticketPrice = (EditText) rootView.findViewById(R.id.ticketPrice);

@@ -68,4 +68,9 @@ public class EventTickets extends AppCompatActivity {
         Intent intent = new Intent(EventTickets.this, QRticketScanner.class);
         startActivity(intent);
     }
+
+    public void goToCompleteEventReg(View view) {
+        Intent intent = new Intent(EventTickets.this, CompleteRegistration.class);
+        startActivity(intent);
+    }
 }

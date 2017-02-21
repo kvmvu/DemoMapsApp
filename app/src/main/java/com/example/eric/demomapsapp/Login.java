@@ -18,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +58,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         dbHelper = new DbHelper(this);
         session = new Session();
+
+//        PostResponseAsyncTask task = new PostResponseAsyncTask(Login.this, new AsyncResponse() {
+//            @Override
+//            public void processFinish(String s) {
+//
+//            }
+//        });
+//
+//        task.execute("http://savtech.co.ke/demomapsapp/addUsers.php");
     }
 
     //on sign up

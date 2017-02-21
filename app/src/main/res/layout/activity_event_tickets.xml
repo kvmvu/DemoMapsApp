@@ -74,9 +74,9 @@
         android:textColor="#FFFFFF"
         android:textAlignment="center"
         android:textSize="16dp"
-        android:layout_alignParentStart="true"
         android:id="@+id/textView3"
+        android:onClick="goToQrScanner"
         android:layout_above="@+id/pgTvProceed"
-        android:onClick="goToQrScanner"/>
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

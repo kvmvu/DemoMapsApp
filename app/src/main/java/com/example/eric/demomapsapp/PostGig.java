@@ -86,6 +86,7 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
 
             etToDate.setText(toTime[0]);
             etTimeTo.setText(toTime[1]);
+//            System.out.println(event.getEvent_start_time());
         }
     }
 
@@ -192,6 +193,8 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
                 double lng = platlng.longitude;
                 eventLat = String.valueOf(lat);
                 eventLng = String.valueOf(lng);
+
+                Toast.makeText(getApplicationContext(), eventLat + ", " + eventLng, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -242,6 +245,8 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
         bundle.putString("eventId", eventId);
         bundle.putString("eventStart", fromDateTimeString);
         bundle.putString("eventEnd", toDateTimeString);
+        bundle.putString("eventLat", eventLat);
+        bundle.putString("eventLng", eventLng);
 
         i.putExtras(bundle);
         startActivity(i);

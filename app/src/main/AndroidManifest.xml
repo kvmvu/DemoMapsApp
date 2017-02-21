@@ -85,7 +85,7 @@
         <activity
             android:name=".CompleteRegistration"
             android:label="@string/title_activity_complete_registration"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

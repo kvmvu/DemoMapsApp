@@ -17,8 +17,10 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.eric.demomapsapp.adapter.TicketAdapater;
+import com.example.eric.demomapsapp.model.Event;
 import com.example.eric.demomapsapp.model.Ticket;
 
 import java.util.List;
@@ -35,10 +37,10 @@ public class EventTickets extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle("Event Tickets");
 
+        listView = (ListView) findViewById(R.id.ticketList);
+
         List<Ticket> ticketList = db.getAllTickets();
         createList(ticketList);
-
-        listView = (ListView) findViewById(R.id.ticketList);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,8 +72,8 @@ public class EventTickets extends AppCompatActivity {
                                                 createList(ticketList);
                                             }
                                         })
-                                        .setNegativeButton("No", null)
-                                        .show();
+                                .setNegativeButton("No", null)
+                                .show();
                                 break;
                             case R.id.popup_edit:
                                 FragmentManager fm = getFragmentManager();
@@ -133,7 +135,7 @@ public class EventTickets extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToCompleteEventReg(View view) {
+    public void goToCompleteEventReg(View view){
         Intent intent = new Intent(EventTickets.this, CompleteRegistration.class);
         startActivity(intent);
     }

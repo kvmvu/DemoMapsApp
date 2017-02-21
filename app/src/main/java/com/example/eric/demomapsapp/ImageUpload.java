@@ -21,7 +21,7 @@ public class ImageUpload extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
 
-    protected String eventId, eventName, eventDescription, eventStartTime, eventEndTime, imagePath = "";
+    protected String eventId, eventName, eventDescription, eventLat, eventLng, eventStartTime, eventEndTime, imagePath = "";
 
     DbHelper db;
 
@@ -44,6 +44,8 @@ public class ImageUpload extends AppCompatActivity {
         eventDescription = bundle.getString("eventDescription");
         eventStartTime = bundle.getString("eventStart");
         eventEndTime = bundle.getString("eventEnd");
+        eventLat = bundle.getString("eventLat");
+        eventLng = bundle.getString("eventLng");
 
         if(!eventId.isEmpty()){
             Event event = db.getEvent(Integer.parseInt(eventId));
@@ -99,8 +101,8 @@ public class ImageUpload extends AppCompatActivity {
             event.setEvent_description(eventDescription);
             event.setEvent_start_time(eventStartTime);
             event.setEvent_end_time(eventEndTime);
-            event.setEvent_loc_lat("0");
-            event.setEvent_loc_lng("0");
+            event.setEvent_loc_lat(eventLat);
+            event.setEvent_loc_lng(eventLng);
             event.setEvent_image(imagePath);
             if (!eventId.isEmpty()){
                 event.setId(Integer.parseInt(eventId));

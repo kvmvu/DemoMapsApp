@@ -25,7 +25,7 @@ import java.util.List;
 public class DbHelper extends SQLiteOpenHelper{
     public static final String TAG = DbHelper.class.getSimpleName();
     public static final String DB_NAME = "demomapsapp.db";
-    public static final int DB_VERSION = 4;
+    public static final int DB_VERSION = 5;
 
     public static final String USER_TABLE = "users";
     public static final String COLUMN_ID = "_id";
@@ -75,7 +75,9 @@ public class DbHelper extends SQLiteOpenHelper{
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + KEY_NAME + " TEXT, "
             + KEY_DESCRIPTION + " TEXT, "
-            + KEY_PRICE + " TEXT);";
+            + KEY_PRICE + " TEXT, "
+            + KEY_EVENT_ID + " TEXT "
+            + ");";
 
     public static final String CREATE_TABLE_EVENT = "CREATE TABLE " + TABLE_EVENT + " ( "
             + EVENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -186,6 +188,7 @@ public class DbHelper extends SQLiteOpenHelper{
         values.put(KEY_NAME, ticket.get_ticket_name());
         values.put(KEY_PRICE, ticket.get_ticket_price());
         values.put(KEY_DESCRIPTION, ticket.get_ticket_description());
+        values.put(KEY_EVENT_ID, ticket.get_event_id());
 
         db.insert(TABLE_TICKET, null, values);
         db.close();
@@ -238,7 +241,7 @@ public class DbHelper extends SQLiteOpenHelper{
 
         if (cursor.moveToFirst()){
             do{
-                Ticket ticket = new Ticket(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), Integer.parseInt(cursor.getString(4)));
+                Ticket ticket = new Ticket();
                 ticket.set_id(Integer.parseInt(cursor.getString(0)));
                 ticket.set_ticket_name(cursor.getString(1));
                 ticket.set_ticket_price(cursor.getString(3));
@@ -331,7 +334,8 @@ public class DbHelper extends SQLiteOpenHelper{
     public Event getEvent(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_EVENT, new String[]{EVENT_ID, EVENT_NAME, EVENT_DESCRIPTION,
-                EVENT_LOC_LAT, EVENT_LOC_LNG, EVENT_START_TIME, EVENT_END_TIME, EVENT_IMAGE},
+                EVENT_LOC_LAT, EVENT_LOC_LNG, EVENT_START_DATE, EVENT_END_DATE, EVENT_START_TIME,
+                EVENT_END_TIME, EVENT_IMAGE},
                 EVENT_ID + "=?", new String[]{String.valueOf(id)}, null,null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -366,9 +370,11 @@ public class DbHelper extends SQLiteOpenHelper{
             event.setEvent_description(cursor.getString(2));
             event.setEvent_loc_lat(cursor.getString(3));
             event.setEvent_loc_lng(cursor.getString(4));
-            event.setEvent_start_time(cursor.getString(5));
-            event.setEvent_end_time(cursor.getString(6));
-            event.setEvent_image(cursor.getString(7));
+            event.setEvent_start_date(cursor.getString(5));
+            event.setEvent_end_date(cursor.getString(6));
+            event.setEvent_start_time(cursor.getString(7));
+            event.setEvent_end_time(cursor.getString(8));
+            event.setEvent_image(cursor.getString(9));
         }
         return event;
     }

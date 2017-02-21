@@ -15,6 +15,10 @@ public class Ticket {
 //
 //    }
 
+    public Ticket(){
+
+    }
+
     public Ticket(int id, String ticket_name, String ticket_price, String ticket_description, int event_id){
         this._id = id;
         this._ticket_name = ticket_name;
@@ -23,12 +27,12 @@ public class Ticket {
         this._event_id = event_id;
     }
 
-//    public Ticket(int i, String string, String cursorString, String s, int parseInt){
-//        this._ticket_name = ticket_name;
-//        this._ticket_price = ticket_price;
-//        this._ticket_description = ticket_description;
-//        this._event_id = event_id;
-//    }
+    public Ticket(String ticket_name, String ticket_price, String ticket_description, int event_id){
+        this._ticket_name = ticket_name;
+        this._ticket_price = ticket_price;
+        this._ticket_description = ticket_description;
+        this._event_id = event_id;
+    }
 
     public int get_id() {
         return _id;

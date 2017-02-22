@@ -63,8 +63,8 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
 
         int count = db.getEventCount();
 
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-        timeFormatter = new SimpleDateFormat("hh:mm", Locale.ENGLISH);
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        timeFormatter = new SimpleDateFormat("hh:mm", Locale.US);
 
         etEventName = (EditText) findViewById(R.id.etGigName);
         etEventDescription = (EditText) findViewById(R.id.etDescription);
@@ -86,8 +86,30 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
 
             etToDate.setText(toTime[0]);
             etTimeTo.setText(toTime[1]);
-//            System.out.println(event.getEvent_start_time());
         }
+
+        //autocomplete feature - google places api
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                Log.d("Place selected: ", String.valueOf(place));
+
+                pName = place.getName().toString();
+                platlng = place.getLatLng();
+                double lat = platlng.latitude;
+                double lng = platlng.longitude;
+                eventLat = String.valueOf(lat);
+                eventLng = String.valueOf(lng);
+            }
+
+            @Override
+            public void onError(Status status) {
+
+            }
+        });
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -175,34 +197,6 @@ public class PostGig extends AppCompatActivity implements View.OnClickListener{
         } else if (view == etTimeTo){
             toTimePickerDialog.show();
         }
-    }
-
-    //autocomplete feature - google places api
-    PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-            getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
-
-    public PlaceAutocompleteFragment getAutocompleteFragment() {
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                Log.d("Place selected: ", String.valueOf(place));
-
-                pName = place.getName().toString();
-                platlng = place.getLatLng();
-                double lat = platlng.latitude;
-                double lng = platlng.longitude;
-                eventLat = String.valueOf(lat);
-                eventLng = String.valueOf(lng);
-
-                Toast.makeText(getApplicationContext(), eventLat + ", " + eventLng, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(Status status) {
-
-            }
-        });
-        return autocompleteFragment;
     }
 
     public void onTvProceed(View view){

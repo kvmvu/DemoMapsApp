@@ -123,6 +123,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 Log.d("status", status);
                 Intent intent = new Intent(Login.this, Start.class);
                 startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(getApplicationContext(), "Confirm correct password", Toast.LENGTH_SHORT).show();
             }

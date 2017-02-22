@@ -1,5 +1,6 @@
 package com.example.eric.demomapsapp;
 
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;

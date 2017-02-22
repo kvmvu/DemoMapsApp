@@ -86,6 +86,10 @@
             android:name=".CompleteRegistration"
             android:label="@string/title_activity_complete_registration"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".preferencesActivity"
+            android:label="@string/title_activity_preferences"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
